@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax Deneme </title>
+</head>
+<body>
+<select onchange="ornek(this.value)"  name="" id="">
+    <option value=""></option>
+    <option value="1">Emre Yaman</option>
+    <option value="2">Mahmut Ustaosmanoğlu</option>
+    <option value="3">Ali Önder</option>
+    <option value="4">Samet Durak</option>
+</select>
+<br>
+<br>
+<div id="sonuc"> </div>
+
+
+
+</body>
+
+<script type="text/javascript" language="JavaScript">
+
+    function ornek(gelendeger) {
+        var istek = new XMLHttpRequest();
+        istek.onreadystatechange = function () {
+
+            if (this.readyState==4 && this.status==200) {
+                document.getElementById("sonuc").innerHTML = this.responseText;
+
+            }else{
+                document.getElementById("sonuc").innerHTML = "bilinmeyen bir hata oluştu";
+
+            }
+            
+        };
+        istek.open("GET", "kaynak.php?deger="+gelendeger, true);
+        istek.send();
+    }
+
+
+
+</script>
+</html>
+
+<!--
+1 select yaparak onchange  diyerek içine örnek adında bir function çaluştır dedik içine birkaçtane option açyırouz
+2 option içine value değerlerini  elle idlerini  ve isimlerini yazarak  hızlı şekilde ajaxa geçicez  div açarak id içine sonuc vererek işlemi bitirdik şimdi js kodlarını yazacağız
+3 ornek adındaki functionu yazacağız istek on ready statechange  yaparak yani istek geldiğinde  eşitlikteki functionu çalıştırıyor functionu şimdi boş bırakıp
+4  funcion dışına bu isteği dosya açarak göndereceğiz   onun için  istek open diyerek getle göndericeğimizi  yazıp sonra onu nerden çekeceğimizi "kaynak.php"  yazıyoruz ve true diyoruz
+ve göndermek için istek send yapıyoruz
+5 şimdi  kaynak.php oluşturuyoruz
+6 index içindeki  option'daki value değerlerini gönderebilmek için  örnek functionu içine parametre göndereceğiz bunuda this.value ile yapacağız
+sciptteki function içine gelen değer yazdık  eğer çalışıp çalışmadğını kontrıok için function içine alert yaparak gelen değeri yazdırısak  hangi id seçersek onu yazdıracaktıkr
+kaynak.php yanına birleştirme olarak soru işareti koyarak deger yazacağız  onuda eşitleyerek gelen değer yazacaız birleştirme opertörü +  ile function içindeki gelen değeri yazarak birleştirdik
+if else yaparak istekleri yazacağız  istek hazırsa this.readyState==4  hazır manasına gelir
+&& this.status==200  dosyaya ulaşılıyorsa
+olaki bir hata varsa else kısmına document getElementById kullanarak sonuc html'ine  inner HTML kullanarak  hata yazısını göndereceğiz
+sonuç alanı doğru ise dönen değeri yazdırmak için this.resonseText yazarak yazdıracağız
+
+-->
